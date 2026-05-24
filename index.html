@@ -107,7 +107,10 @@
       transition: opacity 0.2s;
       border: none;
     }
-    .btn-primary, .btn-success, .btn-excel, .btn-whatsapp { background: var(--whatsapp); color: white; }
+    .btn-primary { background: var(--whatsapp); color: white; }
+    .btn-success { background: var(--whatsapp); color: white; }
+    .btn-excel { background: var(--whatsapp); color: white; }
+    .btn-whatsapp { background: var(--whatsapp); color: white; }
     .btn-danger { background: var(--danger); color: white; }
     .btn-primary:hover, .btn-success:hover, .btn-excel:hover, .btn-whatsapp:hover { opacity: 0.9; }
     .btn-danger:hover { background: var(--danger-hover); }
@@ -239,23 +242,42 @@
     }
 
     .btn-secondary {
-  background: var(--danger);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background 0.2s;
-}
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s;
+    }
 
-.btn-secondary:hover {
-  background: var(--danger-hover);
-}
+    .btn-secondary:hover {
+      background: var(--danger-hover);
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: #000;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.2s;
+    }
+
+    .btn-warning:hover {
+      opacity: 0.9;
+    }
   </style>
 </head>
 <body>
@@ -312,7 +334,7 @@
       <label><span data-i18n="appointmentDate">التاريخ</span><input type="date" id="editDate" required></label>
       <label><span data-i18n="appointmentTime">الوقت</span><input type="time" id="editTime" required></label>
       <label><span data-i18n="status">الحالة</span><select id="editStatus"><option value="pending">قيد الانتظار</option><option value="confirmed">مؤكد</option><option value="cancelled">ملغي</option></select></label>
-      <div class="modal-actions"><button type="button" id="whatsappBtn" class="btn-whatsapp"><i class="bi bi-whatsapp"></i> إرسال واتساب</button><button type="submit" class="btn-primary">حفظ</button><button type="button" id="closeModal" class="btn-secondary">إلغاء</button></div>
+      <div class="modal-actions"><button type="button" id="whatsappBtn" class="btn-whatsapp"><i class="bi bi-whatsapp"></ي> إرسال واتساب</button><button type="submit" class="btn-primary">حفظ</button><button type="button" id="closeModal" class="btn-secondary">إلغاء</button></div>
     </form>
   </dialog>
 
@@ -341,23 +363,175 @@
 
   <script>
     const translations = {
-      ar: { pageTitle: "لوحة مواعيد العيادة", searchPlaceholder: "🔍 بحث بالاسم أو الهاتف...", allStatus: "جميع الحالات", statusPending: "قيد الانتظار", statusConfirmed: "مؤكد", statusCancelled: "ملغي", refresh: "تحديث", addAppointment: "إضافة موعد", addAppointmentTitle: "إضافة موعد جديد", exportExcel: "تصدير CSV", patientName: "اسم المريض", phone: "الهاتف", appointmentDate: "التاريخ", appointmentTime: "الوقت", status: "الحالة", actions: "الإجراءات", edit: "تعديل", delete: "حذف", whatsapp: "واتساب", editAppointment: "تعديل الموعد", sendWhatsApp: "إرسال واتساب", sendBulkWhatsApp: "إرسال جماعي", bulkWhatsAppTitle: "📤 إرسال واتساب جماعي", bulkHint: "اضغط على التالي للإرسال لكل جهة اتصال", next: "التالي", close: "إغلاق", save: "حفظ", cancel: "إلغاء", noData: "لا توجد مواعيد لعرضها", loading: "جاري التحميل...", updated: "تم تحديث الموعد بنجاح ✓", added: "تم إضافة الموعد بنجاح ✓", error: "حدث خطأ، حاول مرة أخرى", selectAtLeastOne: "⚠️ الرجاء تحديد موعد واحد على الأقل", batchCompleted: "✅ اكتمل الإرسال!", batchReady: "جاهز: {name}", whatsappMsg: `*موعد عيادة*\n\n👤 {name}\n📅 {date}\n🕐 {time}\n\nشكراً 🙏`, whatsappError: "⚠️ تعذر فتح واتساب", deleteConfirm: "هل أنت متأكد من حذف هذا الموعد؟", bulkDeleteConfirm: "⚠️ هل أنت متأكد من حذف {count} موعد؟ لا يمكن التراجع.", deletedSuccess: "تم الحذف بنجاح ✓", bulkDelete: "حذف المحدد", exportSuccess: "تم تصدير البيانات بنجاح ✓" },
-      en: { pageTitle: "Clinic Appointments Dashboard", searchPlaceholder: "🔍 Search by name or phone...", allStatus: "All statuses", statusPending: "Pending", statusConfirmed: "Confirmed", statusCancelled: "Cancelled", refresh: "Refresh", addAppointment: "Add Appointment", addAppointmentTitle: "Add New Appointment", exportExcel: "Export CSV", patientName: "Patient Name", phone: "Phone", appointmentDate: "Date", appointmentTime: "Time", status: "Status", actions: "Actions", edit: "Edit", delete: "Delete", whatsapp: "WhatsApp", editAppointment: "Edit Appointment", sendWhatsApp: "Send WhatsApp", sendBulkWhatsApp: "Bulk Send", bulkWhatsAppTitle: "📤 Bulk WhatsApp Send", bulkHint: "Click Next to send to each contact", next: "Next", close: "Close", save: "Save", cancel: "Cancel", noData: "No appointments to display", loading: "Loading...", updated: "Appointment updated successfully ✓", added: "Appointment added successfully ✓", error: "An error occurred, please try again", selectAtLeastOne: "⚠️ Please select at least one appointment", batchCompleted: "✅ Completed!", batchReady: "Ready: {name}", whatsappMsg: `*Clinic Appointment*\n\n👤 {name}\n📅 {date}\n🕐 {time}\n\nThank you 🙏`, whatsappError: "⚠️ Could not open WhatsApp", deleteConfirm: "Are you sure you want to delete this appointment?", bulkDeleteConfirm: "⚠️ Are you sure you want to delete {count} appointments? This cannot be undone.", deletedSuccess: "Deleted successfully ✓", bulkDelete: "Delete Selected", exportSuccess: "Data exported successfully ✓" }
+      ar: { 
+        pageTitle: "لوحة مواعيد العيادة", 
+        searchPlaceholder: "🔍 بحث بالاسم أو الهاتف...", 
+        allStatus: "جميع الحالات", 
+        statusPending: "قيد الانتظار", 
+        statusConfirmed: "مؤكد", 
+        statusCancelled: "ملغي", 
+        refresh: "تحديث", 
+        addAppointment: "إضافة موعد", 
+        addAppointmentTitle: "إضافة موعد جديد", 
+        exportExcel: "تصدير CSV", 
+        patientName: "اسم المريض", 
+        phone: "الهاتف", 
+        appointmentDate: "التاريخ", 
+        appointmentTime: "الوقت", 
+        status: "الحالة", 
+        actions: "الإجراءات", 
+        edit: "تعديل", 
+        delete: "حذف", 
+        whatsapp: "واتساب", 
+        editAppointment: "تعديل الموعد", 
+        sendWhatsApp: "إرسال واتساب", 
+        sendBulkWhatsApp: "إرسال جماعي", 
+        bulkWhatsAppTitle: "📤 إرسال واتساب جماعي", 
+        bulkHint: "اضغط على التالي للإرسال لكل جهة اتصال", 
+        next: "التالي", 
+        close: "إغلاق", 
+        save: "حفظ", 
+        cancel: "إلغاء", 
+        noData: "لا توجد مواعيد لعرضها", 
+        loading: "جاري التحميل...", 
+        updated: "تم تحديث الموعد بنجاح ✓", 
+        added: "تم إضافة الموعد بنجاح ✓", 
+        error: "حدث خطأ، حاول مرة أخرى", 
+        selectAtLeastOne: "⚠️ الرجاء تحديد موعد واحد على الأقل", 
+        batchCompleted: "✅ اكتمل الإرسال!", 
+        batchReady: "جاهز: {name}", 
+        whatsappMsg: `*موعد عيادة*\n\n👤 {name}\n📅 {date}\n🕐 {time}\n\nشكراً 🙏`, 
+        whatsappError: "⚠️ تعذر فتح واتساب", 
+        deleteConfirm: "هل أنت متأكد من حذف هذا الموعد؟", 
+        bulkDeleteConfirm: "⚠️ هل أنت متأكد من حذف {count} موعد؟ لا يمكن التراجع.", 
+        deletedSuccess: "تم الحذف بنجاح ✓", 
+        bulkDelete: "حذف المحدد", 
+        exportSuccess: "تم تصدير البيانات بنجاح ✓",
+        invalidDay: "⚠️ هذا اليوم ({day}) ليس ضمن أيام العمل المسموحة.",
+        invalidDate: "⚠️ هذا التاريخ ({date}) ضمن أيام العطلة.",
+        invalidTime: "⚠️ الوقت المحدد ({time}) خارج ساعات العمل ({start} - {end}).",
+        invalidAppointment: "تنبيه: الموعد غير صالح",
+        continueAnyway: "متابعة",
+        cancelSave: "إلغاء"
+      },
+      en: { 
+        pageTitle: "Clinic Appointments Dashboard", 
+        searchPlaceholder: "🔍 Search by name or phone...", 
+        allStatus: "All statuses", 
+        statusPending: "Pending", 
+        statusConfirmed: "Confirmed", 
+        statusCancelled: "Cancelled", 
+        refresh: "Refresh", 
+        addAppointment: "Add Appointment", 
+        addAppointmentTitle: "Add New Appointment", 
+        exportExcel: "Export CSV", 
+        patientName: "Patient Name", 
+        phone: "Phone", 
+        appointmentDate: "Date", 
+        appointmentTime: "Time", 
+        status: "Status", 
+        actions: "Actions", 
+        edit: "Edit", 
+        delete: "Delete", 
+        whatsapp: "WhatsApp", 
+        editAppointment: "Edit Appointment", 
+        sendWhatsApp: "Send WhatsApp", 
+        sendBulkWhatsApp: "Bulk Send", 
+        bulkWhatsAppTitle: "📤 Bulk WhatsApp Send", 
+        bulkHint: "Click Next to send to each contact", 
+        next: "Next", 
+        close: "Close", 
+        save: "Save", 
+        cancel: "Cancel", 
+        noData: "No appointments to display", 
+        loading: "Loading...", 
+        updated: "Appointment updated successfully ✓", 
+        added: "Appointment added successfully ✓", 
+        error: "An error occurred, please try again", 
+        selectAtLeastOne: "⚠️ Please select at least one appointment", 
+        batchCompleted: "✅ Completed!", 
+        batchReady: "Ready: {name}", 
+        whatsappMsg: `*Clinic Appointment*\n\n👤 {name}\n📅 {date}\n🕐 {time}\n\nThank you 🙏`, 
+        whatsappError: "⚠️ Could not open WhatsApp", 
+        deleteConfirm: "Are you sure you want to delete this appointment?", 
+        bulkDeleteConfirm: "⚠️ Are you sure you want to delete {count} appointments? This cannot be undone.", 
+        deletedSuccess: "Deleted successfully ✓", 
+        bulkDelete: "Delete Selected", 
+        exportSuccess: "Data exported successfully ✓",
+        invalidDay: "⚠️ This day ({day}) is not within allowed working days.",
+        invalidDate: "⚠️ This date ({date}) is a holiday.",
+        invalidTime: "⚠️ The specified time ({time}) is outside working hours ({start} - {end}).",
+        invalidAppointment: "Warning: Invalid Appointment",
+        continueAnyway: "Continue",
+        cancelSave: "Cancel"
+      }
     };
+    
     let currentLang = localStorage.getItem('lang') || 'ar';
-    function t(key, p = {}) { let t = translations[currentLang]?.[key] || key; for (const [k, v] of Object.entries(p)) t = t.replace(`{${k}}`, v); return t; }
-    function setLang(lang) { currentLang = lang; localStorage.setItem('lang', lang); document.documentElement.lang = lang; document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'; document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (translations[currentLang]?.[k]) el.textContent = translations[currentLang][k]; }); document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { const k = el.dataset.i18nPlaceholder; if (translations[currentLang]?.[k]) el.placeholder = translations[currentLang][k]; }); }
+    
+    function t(key, p = {}) { 
+      let text = translations[currentLang]?.[key] || key; 
+      for (const [k, v] of Object.entries(p)) text = text.replace(`{${k}}`, v); 
+      return text; 
+    }
+    
+    function setLang(lang) { 
+      currentLang = lang; 
+      localStorage.setItem('lang', lang); 
+      document.documentElement.lang = lang; 
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'; 
+      document.querySelectorAll('[data-i18n]').forEach(el => { 
+        const k = el.dataset.i18n; 
+        if (translations[currentLang]?.[k]) el.textContent = translations[currentLang][k]; 
+      }); 
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { 
+        const k = el.dataset.i18nPlaceholder; 
+        if (translations[currentLang]?.[k]) el.placeholder = translations[currentLang][k]; 
+      }); 
+    }
+    
     function getLang() { return currentLang; }
-    function initTheme() { const html = document.documentElement; const btn = document.getElementById('themeToggle'); function calc() { const s = localStorage.getItem('theme'); if (s) return s; return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } function apply(t) { html.setAttribute('data-theme', t); btn.querySelector('i').className = t === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill'; } const curr = calc(); apply(curr); btn.addEventListener('click', () => { const nt = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; apply(nt); localStorage.setItem('theme', nt); }); }
+    
+    function initTheme() { 
+      const html = document.documentElement; 
+      const btn = document.getElementById('themeToggle'); 
+      function calc() { 
+        const s = localStorage.getItem('theme'); 
+        if (s) return s; 
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; 
+      } 
+      function apply(t) { 
+        html.setAttribute('data-theme', t); 
+        btn.querySelector('i').className = t === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill'; 
+      } 
+      const curr = calc(); 
+      apply(curr); 
+      btn.addEventListener('click', () => { 
+        const nt = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; 
+        apply(nt); 
+        localStorage.setItem('theme', nt); 
+      }); 
+    }
+    
     const SUPABASE_URL = 'https://ncqvzpcqotdiwjqbwlwp.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_98lfpU1zaqG-MNxkhlvg6g_KEMPMPbS';
     const { createClient } = supabase;
     const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
     let appointments = [], currentEditId = null, selectedIds = new Set(), batchQueue = [], batchIndex = 0;
+    let clinicSettings = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
-      initTheme(); setLang(currentLang);
-      document.getElementById('langToggle').addEventListener('click', () => { const nl = getLang() === 'ar' ? 'en' : 'ar'; setLang(nl); document.getElementById('langLabel').textContent = nl.toUpperCase(); renderTable(); });
+      initTheme(); 
+      setLang(currentLang);
+      
+      document.getElementById('langToggle').addEventListener('click', () => { 
+        const nl = getLang() === 'ar' ? 'en' : 'ar'; 
+        setLang(nl); 
+        document.getElementById('langLabel').textContent = nl.toUpperCase(); 
+        renderTable(); 
+      });
+      
       document.getElementById('refreshBtn').addEventListener('click', fetchAppointments);
       document.getElementById('searchInput').addEventListener('input', renderTable);
       document.getElementById('dateFilter').addEventListener('change', renderTable);
@@ -374,34 +548,376 @@
       document.getElementById('nextBatchBtn').addEventListener('click', nextBatchItem);
       document.getElementById('bulkDeleteBtn').addEventListener('click', bulkDeleteAppointments);
       document.getElementById('selectAllCheckbox').addEventListener('change', toggleSelectAll);
+      
+      await loadClinicSettings();
       await fetchAppointments();
     });
 
-    async function fetchAppointments() { showToast(t('loading'), 'info'); const { data, error } = await db.from('appointments').select('*').order('appointment_date', { ascending: false }).order('appointment_time', { ascending: true }); if (error) { showToast(t('error'), 'error'); return; } appointments = data || []; selectedIds.clear(); renderTable(); }
-    function renderTable() { const tbody = document.getElementById('tableBody'); const search = document.getElementById('searchInput').value.toLowerCase(); const dateFilter = document.getElementById('dateFilter').value; const statusFilter = document.getElementById('statusFilter').value; let filtered = appointments.filter(a => (a.patient_name.toLowerCase().includes(search) || a.phone.toLowerCase().includes(search)) && (!dateFilter || a.appointment_date === dateFilter) && (!statusFilter || a.status === statusFilter)); if (filtered.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:2rem;">${t('noData')}</td></tr>`; updateSelectAllCheckbox(); return; } tbody.innerHTML = filtered.map(a => `<tr><td class="select-col"><input type="checkbox" class="row-checkbox" value="${a.id}" ${selectedIds.has(a.id) ? 'checked' : ''}></td><td><strong>${escapeHtml(a.patient_name)}</strong></td><td>${formatPhone(a.phone)}</td><td>${formatDate(a.appointment_date)}</td><td>${formatTime(a.appointment_time)}</td><td><span class="status-badge status-${a.status}">${t('status' + capitalize(a.status))}</span></td><td class="actions"><button class="action-btn edit" onclick="openEditModal('${a.id}')" title="${t('edit')}"><i class="bi bi-pencil"></i></button><button class="action-btn whatsapp" onclick="quickWhatsApp('${a.id}')" title="${t('whatsapp')}"><i class="bi bi-whatsapp"></i></button><button class="action-btn delete" onclick="deleteAppointment('${a.id}')" title="${t('delete')}"><i class="bi bi-trash"></i></button></td></tr>`).join(''); document.querySelectorAll('.row-checkbox').forEach(cb => cb.addEventListener('change', (e) => { if (e.target.checked) selectedIds.add(e.target.value); else selectedIds.delete(e.target.value); updateSelectAllCheckbox(); })); updateSelectAllCheckbox(); }
-    function updateSelectAllCheckbox() { const ids = new Set(); document.querySelectorAll('.row-checkbox').forEach(cb => ids.add(cb.value)); document.getElementById('selectAllCheckbox').checked = ids.size > 0 && Array.from(ids).every(id => selectedIds.has(id)); }
-    function toggleSelectAll() { const chk = document.getElementById('selectAllCheckbox').checked; document.querySelectorAll('.row-checkbox').forEach(cb => { cb.checked = chk; if (chk) selectedIds.add(cb.value); else selectedIds.delete(cb.value); }); }
-    function openAddModal() { document.getElementById('addForm').reset(); document.getElementById('addDate').value = new Date().toISOString().split('T')[0]; document.getElementById('addModal').showModal(); }
-    async function handleAdd(e) { e.preventDefault(); const newApp = { patient_name: document.getElementById('addName').value, phone: document.getElementById('addPhone').value, appointment_date: document.getElementById('addDate').value, appointment_time: document.getElementById('addTime').value, status: document.getElementById('addStatus').value }; const { error } = await db.from('appointments').insert([newApp]); if (error) { showToast(t('error'), 'error'); return; } document.getElementById('addModal').close(); showToast(t('added'), 'success'); await fetchAppointments(); }
-    function exportToExcel() { const search = document.getElementById('searchInput').value.toLowerCase(); const df = document.getElementById('dateFilter').value; const sf = document.getElementById('statusFilter').value; let data = appointments.filter(a => (a.patient_name.toLowerCase().includes(search) || a.phone.toLowerCase().includes(search)) && (!df || a.appointment_date === df) && (!sf || a.status === sf)); if (data.length === 0) { showToast(t('noData'), 'error'); return; } const headers = [t('patientName'), t('phone'), t('appointmentDate'), t('appointmentTime'), t('status')]; const rows = data.map(a => [a.patient_name, a.phone, formatDate(a.appointment_date), formatTime(a.appointment_time), t('status' + capitalize(a.status))]); let csv = '\uFEFF' + headers.join(',') + '\n' + rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n'); const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `مواعيد_العيادة_${new Date().toISOString().split('T')[0]}.csv`; document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(url); showToast(t('exportSuccess'), 'success'); }
-    window.deleteAppointment = async function(id) { if (!confirm(t('deleteConfirm'))) return; const { error } = await db.from('appointments').delete().eq('id', id); if (error) { showToast(t('error'), 'error'); return; } showToast(t('deletedSuccess'), 'success'); selectedIds.delete(id); await fetchAppointments(); };
-    async function bulkDeleteAppointments() { const ids = Array.from(selectedIds); if (ids.length === 0) { showToast(t('selectAtLeastOne'), 'error'); return; } if (!confirm(t('bulkDeleteConfirm', { count: ids.length }))) return; const { error } = await db.from('appointments').delete().in('id', ids); if (error) { showToast(t('error'), 'error'); return; } showToast(t('deletedSuccess'), 'success'); selectedIds.clear(); await fetchAppointments(); }
-    window.openEditModal = function(id) { const a = appointments.find(a => a.id === id); if (!a) return; currentEditId = id; document.getElementById('editId').value = id; document.getElementById('editName').value = a.patient_name; document.getElementById('editPhone').value = a.phone; document.getElementById('editDate').value = a.appointment_date; document.getElementById('editTime').value = a.appointment_time; document.getElementById('editStatus').value = a.status; document.getElementById('editModal').showModal(); };
-    async function handleSave(e) { e.preventDefault(); const up = { patient_name: document.getElementById('editName').value, phone: document.getElementById('editPhone').value, appointment_date: document.getElementById('editDate').value, appointment_time: document.getElementById('editTime').value, status: document.getElementById('editStatus').value }; const { error } = await db.from('appointments').update(up).eq('id', currentEditId); if (error) { showToast(t('error'), 'error'); return; } document.getElementById('editModal').close(); showToast(t('updated'), 'success'); await fetchAppointments(); }
-    function openWA(phone, name, date, time) { let p = phone.replace(/[\s\-\+\(\)]/g, ''); if (p.startsWith('0')) p = '966' + p.slice(1); const msg = t('whatsappMsg', { name, date: formatDate(date), time: formatTime(time) }); const url = `https://web.whatsapp.com/send?phone=${p}&text=${encodeURIComponent(msg)}`; window.open(url, '_blank'); }
-    function sendWhatsAppFromModal() { openWA(document.getElementById('editPhone').value, document.getElementById('editName').value, document.getElementById('editDate').value, document.getElementById('editTime').value); }
-    window.quickWhatsApp = function(id) { const a = appointments.find(a => a.id === id); if (a) openWA(a.phone, a.patient_name, a.appointment_date, a.appointment_time); };
-    function startBatchWhatsApp() { if (selectedIds.size === 0) { showToast(t('selectAtLeastOne'), 'error'); return; } batchQueue = Array.from(selectedIds).map(id => appointments.find(a => a.id === id)).filter(Boolean); batchIndex = 0; renderBatchList(); updateBatchProgress(); document.getElementById('batchModal').showModal(); }
-    function renderBatchList() { const c = document.getElementById('batchListContainer'); c.innerHTML = ''; batchQueue.forEach((a, i) => { const d = document.createElement('div'); d.className = `batch-item ${i === batchIndex ? 'active' : ''} ${i < batchIndex ? 'done' : ''}`; d.innerHTML = `<span>👤 ${escapeHtml(a.patient_name)}</span><span dir="ltr">${a.phone}</span>`; c.appendChild(d); }); const sd = document.getElementById('batchStatus'); if (batchIndex < batchQueue.length) { sd.textContent = t('batchReady', { name: batchQueue[batchIndex].patient_name }); document.getElementById('nextBatchBtn').innerHTML = `<span data-i18n="next">${t('next')}</span> <i class="bi bi-arrow-left"></i>`; } else { sd.textContent = t('batchCompleted'); document.getElementById('nextBatchBtn').innerHTML = `<span data-i18n="close">${t('close')}</span>`; } }
-    function nextBatchItem() { if (batchIndex >= batchQueue.length) { closeBatchModal(); return; } const a = batchQueue[batchIndex]; openWA(a.phone, a.patient_name, a.appointment_date, a.appointment_time); batchIndex++; renderBatchList(); updateBatchProgress(); if (batchIndex >= batchQueue.length) document.getElementById('nextBatchBtn').innerHTML = `<span data-i18n="close">${t('close')}</span>`; }
-    function updateBatchProgress() { document.getElementById('batchProgressFill').style.width = (batchQueue.length ? (batchIndex / batchQueue.length) * 100 : 0) + '%'; }
-    function closeBatchModal() { document.getElementById('batchModal').close(); selectedIds.clear(); renderTable(); }
-    function formatDate(d) { if (!d) return ''; const [y,m,day] = d.split('-'); return getLang() === 'ar' ? `${day}/${m}/${y}` : `${y}-${m}-${day}`; }
-    function formatTime(t) { if (!t) return ''; const [h,m] = t.split(':'); return `${h}:${m}`; }
-    function formatPhone(p) { return p.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3'); }
-    function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
-    function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
-    function showToast(msg, type = 'info') { const tst = document.getElementById('toast'); tst.textContent = msg; tst.className = `toast ${type}`; tst.classList.remove('hidden'); setTimeout(() => tst.classList.add('hidden'), 3000); }
+    async function loadClinicSettings() {
+      const { data, error } = await db.from('clinic_settings').select('*').eq('id', 1).single();
+      if (!error && data) {
+        clinicSettings = data;
+      } else {
+        clinicSettings = {
+          allowed_days: [0,1,2,3,4],
+          blocked_dates: [],
+          work_start: '09:00:00',
+          work_end: '17:00:00'
+        };
+      }
+    }
+
+    function getDayName(dayIndex) {
+      const arDays = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+      const enDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      return getLang() === 'ar' ? arDays[dayIndex] : enDays[dayIndex];
+    }
+
+    function validateAppointment(dateStr, timeStr) {
+      if (!clinicSettings) return null;
+
+      const date = new Date(dateStr + 'T00:00:00');
+      const dayOfWeek = date.getDay();
+      
+      if (clinicSettings.allowed_days && clinicSettings.allowed_days.length > 0) {
+        if (!clinicSettings.allowed_days.includes(dayOfWeek)) {
+          return t('invalidDay', { day: getDayName(dayOfWeek) });
+        }
+      }
+
+      if (clinicSettings.blocked_dates && clinicSettings.blocked_dates.length > 0) {
+        if (clinicSettings.blocked_dates.includes(dateStr)) {
+          return t('invalidDate', { date: formatDate(dateStr) });
+        }
+      }
+
+      if (timeStr && clinicSettings.work_start && clinicSettings.work_end) {
+        if (timeStr < clinicSettings.work_start || timeStr > clinicSettings.work_end) {
+          return t('invalidTime', { 
+            time: formatTime(timeStr), 
+            start: formatTime(clinicSettings.work_start), 
+            end: formatTime(clinicSettings.work_end) 
+          });
+        }
+      }
+
+      return null;
+    }
+
+    function showValidationDialog(message, onContinue) {
+      const dialog = document.createElement('dialog');
+      dialog.style.cssText = `
+        border: none;
+        border-radius: var(--radius);
+        padding: 2rem;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        max-width: 450px;
+        width: 90%;
+        text-align: center;
+      `;
+      
+      dialog.innerHTML = `
+        <div style="margin-bottom: 1.5rem;">
+          <i class="bi bi-exclamation-triangle-fill" style="font-size: 3rem; color: var(--warning);"></i>
+        </div>
+        <h3 style="margin-bottom: 1rem;">${t('invalidAppointment')}</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">${message}</p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+          <button id="continueBtn" class="btn-warning">
+            <i class="bi bi-arrow-left"></i> ${t('continueAnyway')}
+          </button>
+          <button id="cancelValidationBtn" class="btn-secondary">
+            <i class="bi bi-x-circle"></i> ${t('cancelSave')}
+          </button>
+        </div>
+      `;
+      
+      document.body.appendChild(dialog);
+      dialog.showModal();
+      
+      const cleanup = () => {
+        dialog.close();
+        document.body.removeChild(dialog);
+      };
+      
+      dialog.querySelector('#continueBtn').addEventListener('click', () => {
+        cleanup();
+        if (onContinue) onContinue();
+      });
+      
+      dialog.querySelector('#cancelValidationBtn').addEventListener('click', cleanup);
+      
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) cleanup();
+      });
+    }
+
+    async function fetchAppointments() { 
+      showToast(t('loading'), 'info'); 
+      const { data, error } = await db.from('appointments').select('*').order('appointment_date', { ascending: false }).order('appointment_time', { ascending: true }); 
+      if (error) { showToast(t('error'), 'error'); return; } 
+      appointments = data || []; 
+      selectedIds.clear(); 
+      renderTable(); 
+    }
+    
+    function renderTable() { 
+      const tbody = document.getElementById('tableBody'); 
+      const search = document.getElementById('searchInput').value.toLowerCase(); 
+      const dateFilter = document.getElementById('dateFilter').value; 
+      const statusFilter = document.getElementById('statusFilter').value; 
+      let filtered = appointments.filter(a => (a.patient_name.toLowerCase().includes(search) || a.phone.toLowerCase().includes(search)) && (!dateFilter || a.appointment_date === dateFilter) && (!statusFilter || a.status === statusFilter)); 
+      if (filtered.length === 0) { 
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:2rem;">${t('noData')}</td></tr>`; 
+        updateSelectAllCheckbox(); 
+        return; 
+      } 
+      tbody.innerHTML = filtered.map(a => `<tr><td class="select-col"><input type="checkbox" class="row-checkbox" value="${a.id}" ${selectedIds.has(a.id) ? 'checked' : ''}></td><td><strong>${escapeHtml(a.patient_name)}</strong></td><td>${formatPhone(a.phone)}</td><td>${formatDate(a.appointment_date)}</td><td>${formatTime(a.appointment_time)}</td><td><span class="status-badge status-${a.status}">${t('status' + capitalize(a.status))}</span></td><td class="actions"><button class="action-btn edit" onclick="openEditModal('${a.id}')" title="${t('edit')}"><i class="bi bi-pencil"></i></button><button class="action-btn whatsapp" onclick="quickWhatsApp('${a.id}')" title="${t('whatsapp')}"><i class="bi bi-whatsapp"></i></button><button class="action-btn delete" onclick="deleteAppointment('${a.id}')" title="${t('delete')}"><i class="bi bi-trash"></i></button></td></tr>`).join(''); 
+      document.querySelectorAll('.row-checkbox').forEach(cb => cb.addEventListener('change', (e) => { 
+        if (e.target.checked) selectedIds.add(e.target.value); 
+        else selectedIds.delete(e.target.value); 
+        updateSelectAllCheckbox(); 
+      })); 
+      updateSelectAllCheckbox(); 
+    }
+    
+    function updateSelectAllCheckbox() { 
+      const ids = new Set(); 
+      document.querySelectorAll('.row-checkbox').forEach(cb => ids.add(cb.value)); 
+      document.getElementById('selectAllCheckbox').checked = ids.size > 0 && Array.from(ids).every(id => selectedIds.has(id)); 
+    }
+    
+    function toggleSelectAll() { 
+      const chk = document.getElementById('selectAllCheckbox').checked; 
+      document.querySelectorAll('.row-checkbox').forEach(cb => { 
+        cb.checked = chk; 
+        if (chk) selectedIds.add(cb.value); 
+        else selectedIds.delete(cb.value); 
+      }); 
+    }
+    
+    function openAddModal() { 
+      document.getElementById('addForm').reset(); 
+      document.getElementById('addDate').value = new Date().toISOString().split('T')[0]; 
+      document.getElementById('addModal').showModal(); 
+    }
+    
+    async function handleAdd(e) { 
+      e.preventDefault(); 
+      const date = document.getElementById('addDate').value;
+      const time = document.getElementById('addTime').value;
+      
+      const validationError = validateAppointment(date, time);
+      
+      const saveAppointment = async () => {
+        const newApp = { 
+          patient_name: document.getElementById('addName').value, 
+          phone: document.getElementById('addPhone').value, 
+          appointment_date: date, 
+          appointment_time: time, 
+          status: document.getElementById('addStatus').value 
+        }; 
+        const { error } = await db.from('appointments').insert([newApp]); 
+        if (error) { showToast(t('error'), 'error'); return; } 
+        document.getElementById('addModal').close(); 
+        showToast(t('added'), 'success'); 
+        await fetchAppointments(); 
+      };
+      
+      if (validationError) {
+        showValidationDialog(validationError, saveAppointment);
+      } else {
+        await saveAppointment();
+      }
+    }
+    
+    function exportToExcel() { 
+      const search = document.getElementById('searchInput').value.toLowerCase(); 
+      const df = document.getElementById('dateFilter').value; 
+      const sf = document.getElementById('statusFilter').value; 
+      let data = appointments.filter(a => (a.patient_name.toLowerCase().includes(search) || a.phone.toLowerCase().includes(search)) && (!df || a.appointment_date === df) && (!sf || a.status === sf)); 
+      if (data.length === 0) { showToast(t('noData'), 'error'); return; } 
+      const headers = [t('patientName'), t('phone'), t('appointmentDate'), t('appointmentTime'), t('status')]; 
+      const rows = data.map(a => [a.patient_name, a.phone, formatDate(a.appointment_date), formatTime(a.appointment_time), t('status' + capitalize(a.status))]); 
+      let csv = '\uFEFF' + headers.join(',') + '\n' + rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n'); 
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); 
+      const url = URL.createObjectURL(blob); 
+      const link = document.createElement('a'); 
+      link.href = url; 
+      link.download = `مواعيد_العيادة_${new Date().toISOString().split('T')[0]}.csv`; 
+      document.body.appendChild(link); 
+      link.click(); 
+      document.body.removeChild(link); 
+      URL.revokeObjectURL(url); 
+      showToast(t('exportSuccess'), 'success'); 
+    }
+    
+    window.deleteAppointment = async function(id) { 
+      if (!confirm(t('deleteConfirm'))) return; 
+      const { error } = await db.from('appointments').delete().eq('id', id); 
+      if (error) { showToast(t('error'), 'error'); return; } 
+      showToast(t('deletedSuccess'), 'success'); 
+      selectedIds.delete(id); 
+      await fetchAppointments(); 
+    };
+    
+    async function bulkDeleteAppointments() { 
+      const ids = Array.from(selectedIds); 
+      if (ids.length === 0) { showToast(t('selectAtLeastOne'), 'error'); return; } 
+      if (!confirm(t('bulkDeleteConfirm', { count: ids.length }))) return; 
+      const { error } = await db.from('appointments').delete().in('id', ids); 
+      if (error) { showToast(t('error'), 'error'); return; } 
+      showToast(t('deletedSuccess'), 'success'); 
+      selectedIds.clear(); 
+      await fetchAppointments(); 
+    }
+    
+    window.openEditModal = function(id) { 
+      const a = appointments.find(a => a.id === id); 
+      if (!a) return; 
+      currentEditId = id; 
+      document.getElementById('editId').value = id; 
+      document.getElementById('editName').value = a.patient_name; 
+      document.getElementById('editPhone').value = a.phone; 
+      document.getElementById('editDate').value = a.appointment_date; 
+      document.getElementById('editTime').value = a.appointment_time; 
+      document.getElementById('editStatus').value = a.status; 
+      document.getElementById('editModal').showModal(); 
+    };
+    
+    async function handleSave(e) { 
+      e.preventDefault(); 
+      const date = document.getElementById('editDate').value;
+      const time = document.getElementById('editTime').value;
+      
+      const validationError = validateAppointment(date, time);
+      
+      const saveAppointment = async () => {
+        const up = { 
+          patient_name: document.getElementById('editName').value, 
+          phone: document.getElementById('editPhone').value, 
+          appointment_date: date, 
+          appointment_time: time, 
+          status: document.getElementById('editStatus').value 
+        }; 
+        const { error } = await db.from('appointments').update(up).eq('id', currentEditId); 
+        if (error) { showToast(t('error'), 'error'); return; } 
+        document.getElementById('editModal').close(); 
+        showToast(t('updated'), 'success'); 
+        await fetchAppointments(); 
+      };
+      
+      if (validationError) {
+        showValidationDialog(validationError, saveAppointment);
+      } else {
+        await saveAppointment();
+      }
+    }
+    
+    function openWA(phone, name, date, time) { 
+      let p = phone.replace(/[\s\-\+\(\)]/g, ''); 
+      if (p.startsWith('0')) p = '966' + p.slice(1); 
+      const msg = t('whatsappMsg', { name, date: formatDate(date), time: formatTime(time) }); 
+      const url = `https://web.whatsapp.com/send?phone=${p}&text=${encodeURIComponent(msg)}`; 
+      window.open(url, '_blank'); 
+    }
+    
+    function sendWhatsAppFromModal() { 
+      openWA(document.getElementById('editPhone').value, document.getElementById('editName').value, document.getElementById('editDate').value, document.getElementById('editTime').value); 
+    }
+    
+    window.quickWhatsApp = function(id) { 
+      const a = appointments.find(a => a.id === id); 
+      if (a) openWA(a.phone, a.patient_name, a.appointment_date, a.appointment_time); 
+    };
+    
+    function startBatchWhatsApp() { 
+      if (selectedIds.size === 0) { showToast(t('selectAtLeastOne'), 'error'); return; } 
+      batchQueue = Array.from(selectedIds).map(id => appointments.find(a => a.id === id)).filter(Boolean); 
+      batchIndex = 0; 
+      renderBatchList(); 
+      updateBatchProgress(); 
+      document.getElementById('batchModal').showModal(); 
+    }
+    
+    function renderBatchList() { 
+      const c = document.getElementById('batchListContainer'); 
+      c.innerHTML = ''; 
+      batchQueue.forEach((a, i) => { 
+        const d = document.createElement('div'); 
+        d.className = `batch-item ${i === batchIndex ? 'active' : ''} ${i < batchIndex ? 'done' : ''}`; 
+        d.innerHTML = `<span>👤 ${escapeHtml(a.patient_name)}</span><span dir="ltr">${a.phone}</span>`; 
+        c.appendChild(d); 
+      }); 
+      const sd = document.getElementById('batchStatus'); 
+      if (batchIndex < batchQueue.length) { 
+        sd.textContent = t('batchReady', { name: batchQueue[batchIndex].patient_name }); 
+        document.getElementById('nextBatchBtn').innerHTML = `<span data-i18n="next">${t('next')}</span> <i class="bi bi-arrow-left"></i>`; 
+      } else { 
+        sd.textContent = t('batchCompleted'); 
+        document.getElementById('nextBatchBtn').innerHTML = `<span data-i18n="close">${t('close')}</span>`; 
+      } 
+    }
+    
+    function nextBatchItem() { 
+      if (batchIndex >= batchQueue.length) { 
+        closeBatchModal(); 
+        return; 
+      } 
+      const a = batchQueue[batchIndex]; 
+      openWA(a.phone, a.patient_name, a.appointment_date, a.appointment_time); 
+      batchIndex++; 
+      renderBatchList(); 
+      updateBatchProgress(); 
+      if (batchIndex >= batchQueue.length) 
+        document.getElementById('nextBatchBtn').innerHTML = `<span data-i18n="close">${t('close')}</span>`; 
+    }
+    
+    function updateBatchProgress() { 
+      document.getElementById('batchProgressFill').style.width = (batchQueue.length ? (batchIndex / batchQueue.length) * 100 : 0) + '%'; 
+    }
+    
+    function closeBatchModal() { 
+      document.getElementById('batchModal').close(); 
+      selectedIds.clear(); 
+      renderTable(); 
+    }
+    
+    function formatDate(d) { 
+      if (!d) return ''; 
+      const [y,m,day] = d.split('-'); 
+      return getLang() === 'ar' ? `${day}/${m}/${y}` : `${y}-${m}-${day}`; 
+    }
+    
+    function formatTime(t) { 
+      if (!t) return ''; 
+      const [h,m] = t.split(':'); 
+      return `${h}:${m}`; 
+    }
+    
+    function formatPhone(p) { 
+      return p.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3'); 
+    }
+    
+    function capitalize(s) { 
+      return s.charAt(0).toUpperCase() + s.slice(1); 
+    }
+    
+    function escapeHtml(t) { 
+      const d = document.createElement('div'); 
+      d.textContent = t; 
+      return d.innerHTML; 
+    }
+    
+    function showToast(msg, type = 'info') { 
+      const tst = document.getElementById('toast'); 
+      tst.textContent = msg; 
+      tst.className = `toast ${type}`; 
+      tst.classList.remove('hidden'); 
+      setTimeout(() => tst.classList.add('hidden'), 3000); 
+    }
   </script>
 </body>
 </html>
