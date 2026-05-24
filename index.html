@@ -333,8 +333,8 @@
       <label><span data-i18n="phone">الهاتف</span><input type="tel" id="editPhone" required pattern="^[+]?[0-9\s\-()]{10,}$"></label>
       <label><span data-i18n="appointmentDate">التاريخ</span><input type="date" id="editDate" required></label>
       <label><span data-i18n="appointmentTime">الوقت</span><input type="time" id="editTime" required></label>
-      <label><span data-i18n="status">الحالة</span><select id="editStatus"><option value="pending">قيد الانتظار</option><option value="confirmed">مؤكد</option><option value="cancelled">ملغي</option></select></label>
-      <div class="modal-actions"><button type="button" id="whatsappBtn" class="btn-whatsapp" style="display:none"><i class="bi bi-whatsapp"></ي> إرسال واتساب</button><button type="submit" class="btn-primary">حفظ</button><button type="button" id="closeModal" class="btn-secondary">إلغاء</button></div>
+      <label><span data-i18n="status">الحالة</span><select id="editStatus"><option value="pending" data-i18n="statusPending">قيد الانتظار</option><option value="confirmed" data-i18n="statusConfirmed">مؤكد</option><option value="cancelled" data-i18n="statusCancelled">ملغي</option></select></label>
+      <div class="modal-actions"><button type="submit" class="btn-primary"><i class="bi bi-check-lg"></i> <span data-i18n="save">حفظ</span></button><button type="button" id="closeModal" class="btn-secondary"><i class="bi bi-x-lg"></i> <span data-i18n="cancel">إلغاء</span></button></div>
     </form>
   </dialog>
 
@@ -344,9 +344,8 @@
       <label><span data-i18n="phone">الهاتف</span><input type="tel" id="addPhone" required pattern="^[+]?[0-9\s\-()]{10,}$"></label>
       <label><span data-i18n="appointmentDate">التاريخ</span><input type="date" id="addDate" required></label>
       <label><span data-i18n="appointmentTime">الوقت</span><input type="time" id="addTime" required></label>
-      <label><span data-i18n="status">الحالة</span><select id="addStatus"><option value="pending">قيد الانتظار</option><option value="confirmed">مؤكد</option><option value="cancelled">ملغي</option></select></label>
-      <div class="modal-actions"><button type="submit" class="btn-primary">حفظ</button><button type="button" id="closeAddModal" class="btn-secondary">إلغاء</button></div>
-    </form>
+      <label><span data-i18n="status">الحالة</span><select id="addStatus"><option value="pending" data-i18n="statusPending">قيد الانتظار</option><option value="confirmed" data-i18n="statusConfirmed">مؤكد</option><option value="cancelled" data-i18n="statusCancelled">ملغي</option></select></label>
+      <div class="modal-actions"><button type="submit" class="btn-primary"><i class="bi bi-check-lg"></i> <span data-i18n="save">حفظ</span></button><button type="button" id="closeAddModal" class="btn-secondary"><i class="bi bi-x-lg"></i> <span data-i18n="cancel">إلغاء</span></button></div>
   </dialog>
 
   <dialog id="batchModal">
@@ -540,7 +539,6 @@
       document.getElementById('closeAddModal').addEventListener('click', () => document.getElementById('addModal').close());
       document.getElementById('editForm').addEventListener('submit', handleSave);
       document.getElementById('addForm').addEventListener('submit', handleAdd);
-      document.getElementById('whatsappBtn').addEventListener('click', sendWhatsAppFromModal);
       document.getElementById('addAppointmentBtn').addEventListener('click', openAddModal);
       document.getElementById('exportExcelBtn').addEventListener('click', exportToExcel);
       document.getElementById('batchWhatsappBtn').addEventListener('click', startBatchWhatsApp);
@@ -822,10 +820,6 @@
       const msg = t('whatsappMsg', { name, date: formatDate(date), time: formatTime(time) }); 
       const url = `https://web.whatsapp.com/send?phone=${p}&text=${encodeURIComponent(msg)}`; 
       window.open(url, '_blank'); 
-    }
-    
-    function sendWhatsAppFromModal() { 
-      openWA(document.getElementById('editPhone').value, document.getElementById('editName').value, document.getElementById('editDate').value, document.getElementById('editTime').value); 
     }
     
     window.quickWhatsApp = function(id) { 
